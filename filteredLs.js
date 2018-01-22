@@ -12,7 +12,7 @@ const path = require('path');
 const pathToDir = process.argv[2];
 const extension = process.argv[3];
 
-/* 
+/** 
 Get Files from directory that have extension
 @param Path to the directory
 @param extension

@@ -1,19 +1,16 @@
-const fs = require('fs');
-const path = require('path');
-
 //get the path to the directory and the extension of the file
 const pathToDir = process.argv[2];
-
 const extension = process.argv[3];
-//read the file of the directory and save the save the in the callback function
-var geFiles = fs.readdir(pathToDir, function (err, list) {
-    // loop through each file in the folder and check if the extension match with the provided one
-    list.forEach(function (file) {
-        if (path.extname(file) === '.' + extension) {
-            return file;
-        }
-    })
+const getFiles = require('./module');
 
-})
+/*
+Function call to get the files with the respectively extension
+ */
+getFiles(pathToDir, extension, function(err, list) {
+  if (err) return console.log(err);
 
-getFiles = module.exports;
+  // loop through the results of the function
+  list.forEach(function(file) {
+    console.log(file);
+  });
+});
