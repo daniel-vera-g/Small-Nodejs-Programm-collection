@@ -8,7 +8,11 @@
 //  set the standart input to the url
 const url = process.argv[2];
 
-
+/**
+ * Make an http request to the server
+ * @param  {} url The url to make the request 
+ * @param  {} function
+ */
 let httpRequest = http.get(url, function(response){
     // change encoding to utfs8
     response.setEncoding('utf8');
