@@ -5,8 +5,8 @@
  * Logs complete String of Characters
  * */
 
- let http = require('http');
- let concat = require('concat-stream');
+const http = require('http');
+const concat = require('concat-stream');
  let url = process.argv[2];
  let text = '';
  let stringLength;
