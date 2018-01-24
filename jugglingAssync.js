@@ -1,54 +1,55 @@
+
 /**
  * A Programm that:
  * Makes a HTTP Get request
  * Logs the data received to the console
+ * Using Promises
  * */
 
 const http = require("http");
-let result = [];
-let counter;
+
+// use slice function to get the url's to make a query to
+let urls = process.argv.slice(2, process.argv.length)
 
 /**
- * function that logs the results to the screen
+ * Function to fetch the data from the get request
+ * @param  {stiring} url Url to make the request to
  */
-let LogResults = () => {
-    // Loop through the results and log them to the console
-    for (let i = 0; i < 3; i++) {
-     console.log(result[i]);
-    };
-}
-/**
- * Function to handle the HTTP Request procideur
- * @param  {string} index
- */
-let getReq = (index) => {  
+let fetchData = function(url){
+  // New Promise to make the http request
+  return new Promise(function(resolve, reject){
+    // http get request
+    http.get(url, (res)=> {
+      let result = '';
+      res.setEncoding('utf8');
+      
+      res.on('data', (chunk) => {
+        result += chunk;  
+      })
 
-  /**
-   * make get HTTP request
-   */
-  http.get(process.argv[2+index], function(res) {
-    //  set encoding to utf8
-    res.setEncoding("utf8");
-  
-    //  put each part of data we get to the text obeject
-    res.on("data", function(data) {
-      data = data.toString();
-      result[index] = data;
-    });
+      res.on('end', () => {
+        resolve(result);
+      })
 
-    //when the index is 3 print the data
-    if (index = 3) {
-      LogResults();
-    }
-  
-    // do this when an error occurs
-    res.on("error", function(error) {
-      console.log(error);
-    });
-  });
+    }).on('error', (e) => {
+      reject(e);
+    })
+
+  })
 }
 
-// Loop to loop through the different urls and pass the index
-for (let i = 0; i < 3; i++) {
-  getReq(i);
-}
+//map the urls to the fetchData function
+let resultItems = urls.map(fetchData);
+
+// Call Promise and get items when everything fullifilled
+Promise.all(resultItems).
+then(function(result){
+
+  // when every promise is resolved loop through the results
+  result.forEach(function(resultItem){
+    console.log(resultItem); 
+  })
+
+}).catch(function(err){
+  throw err;
+})
