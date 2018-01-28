@@ -58,9 +58,9 @@ http.createServer((req, res) => {
     if (req.method == 'GET') {
         res.writeHead(200, { "Content-Type": "application/json" });  
         // parse the incoming URL into an object
-        url = url.parse(req.url, true);
+        let reqUrl = url.parse(req.url, true);
         // send a response with the date
-        res.end(JSON.stringify(parseTime(url)));
+        res.end(JSON.stringify(parseTime(reqUrl)));
     }else{
         res.writeHead('405');
         res.end();
