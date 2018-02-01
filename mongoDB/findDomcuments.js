@@ -8,22 +8,36 @@ var url = "mongodb://localhost:27017/learnyoumongo";
 
 // connect to database
 mongo.connect(url, (err, database) => {
-  if (err) throw err;
+                                        if (err) throw err;
 
-  // get database
-  var myDb = database.db("learnyoumongo");
+                                        // get database
+                                        var db = database.db("learnyoumongo");
 
-  // get collection
-  let parrots = myDb.collection("parrots");
+                                        // get collection
+                                        let parrots = db.collection("parrots");
 
-  // find values that where age is bigger than the requiredd age
-  parrots.find({
-    age: {
-      $gt: +age
-    }
-  }).toArray((err,docs) => {
-    if (err) throw err;
-    console.log(docs);
-    db.close();
-  });
-});
+                                        // find values that where age is bigger than the requiredd age
+                                        parrots
+                                          .find(
+                                            {
+                                              age: {
+                                                $gt: +age
+                                              }
+                                            }
+                                          )
+                                          .toArray(
+                                            (
+                                              err,
+                                              docs
+                                            ) => {
+                                              if (
+                                                err
+                                              )
+                                                throw err;
+                                              console.log(
+                                                docs
+                                              );
+                                              database.close();
+                                            }
+                                          );
+                                      });
