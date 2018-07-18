@@ -4,15 +4,13 @@
 
 // The full path to the file to read will be provided as the first
 // command - line argument(i.e., process.argv[2]).You do not need to make
-// your own test file.  
+// your own test file.
 
-var fs = require('fs');
+const fs = require("fs");
 
-var text = fs.readFileSync(process.argv[2]);
-//console.log(text.toString());
+const text = fs.readFileSync(process.argv[2]);
+// console.log(text.toString());
 
-var numberWhitespaces = text.toString().split('\n').length - 1;
+const numberWhitespaces = text.toString().split("\n").length - 1;
 console.log(Number(numberWhitespaces));
-
-
 

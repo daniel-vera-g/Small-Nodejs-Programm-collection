@@ -1,9 +1,9 @@
 /**
  * Remove value in a collection.
  */
-var MongoClient = require("mongodb").MongoClient;
+const MongoClient = require("mongodb").MongoClient;
 
-//database name
+// database name
 const dbName = process.argv[2];
 // collection name
 const collectionName = process.argv[3];
@@ -14,20 +14,20 @@ const url = "mongodb://localhost:27017/learnyoumongo";
 
 // connect to database
 MongoClient.connect(url, (err, database) => {
-  if (err) throw err;
+	if (err) throw err;
 
-  // get database
-  var db = database.db(dbName);
+	// get database
+	const db = database.db(dbName);
 
-  // get collection
-  const collection = db.collection(collectionName);
-  
-  //   remove data from the collection 
-  collection.remove({
-      _id: id
-  }, (err) => {
-      if (er) throw err;
-  })
+	// get collection
+	const collection = db.collection(collectionName);
 
-  db.close();
+	//   remove data from the collection
+	collection.remove({
+		_id: id,
+	}, (err) => {
+		if (er) throw err;
+	});
+
+	db.close();
 });
